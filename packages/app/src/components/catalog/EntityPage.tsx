@@ -27,6 +27,7 @@ import {
   isOrphan,
   hasRelationWarnings,
   EntityRelationWarning,
+  isResourceType,
 } from '@backstage/plugin-catalog';
 import {
   isGithubActionsAvailable,
@@ -39,7 +40,7 @@ import {
   EntityOwnershipCard,
 } from '@backstage/plugin-org';
 import { EntityTechdocsContent } from '@backstage/plugin-techdocs';
-import { EmptyState } from '@backstage/core-components';
+import { EmptyState, InfoCard } from '@backstage/core-components';
 import {
   Direction,
   EntityCatalogGraphCard,
@@ -57,6 +58,7 @@ import {
 
 import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
 import { ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
+import { useEntity } from '@backstage/plugin-catalog-react';
 
 const techdocsContent = (
   <EntityTechdocsContent>
@@ -377,6 +379,46 @@ const domainPage = (
   </EntityLayout>
 );
 
+const PlanetCard = () => {
+  const { entity } = useEntity();
+
+  return (
+    <InfoCard title="Image">
+      <img
+        src={entity.metadata.annotations!.image}
+        alt={`Planet ${entity.metadata.name} taken from space`}
+        height="250px"
+      />
+    </InfoCard>
+  );
+};
+
+const planetPage = (
+  <EntityLayout>
+    <EntityLayout.Route path="/" title="Overview">
+      <Grid container spacing={3} alignItems="stretch">
+        {entityWarningContent}
+        <Grid item md={6}>
+          <EntityAboutCard variant="gridItem" />
+        </Grid>
+        <Grid item md={6}>
+          <PlanetCard />
+        </Grid>
+        <Grid item md={4} xs={12}>
+          <EntityCatalogGraphCard variant="gridItem" height={400} />
+        </Grid>
+
+        <Grid item md={4} xs={12}>
+          <EntityLinksCard />
+        </Grid>
+        <Grid item md={4} xs={12}>
+          <EntityHasSubcomponentsCard variant="gridItem" />
+        </Grid>
+      </Grid>
+    </EntityLayout.Route>
+  </EntityLayout>
+);
+
 export const entityPage = (
   <EntitySwitch>
     <EntitySwitch.Case if={isKind('component')} children={componentPage} />
@@ -385,6 +427,7 @@ export const entityPage = (
     <EntitySwitch.Case if={isKind('user')} children={userPage} />
     <EntitySwitch.Case if={isKind('system')} children={systemPage} />
     <EntitySwitch.Case if={isKind('domain')} children={domainPage} />
+    <EntitySwitch.Case if={isResourceType('planet')} children={planetPage} />
 
     <EntitySwitch.Case>{defaultEntityPage}</EntitySwitch.Case>
   </EntitySwitch>
