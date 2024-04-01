@@ -16,6 +16,7 @@
     "build-image": "docker build ../.. -f Dockerfile --tag backstage"
   },
   "dependencies": {
+    "@backstage/backend-app-api": "^0.6.2",
     "@backstage/backend-common": "^0.21.6",
     "@backstage/backend-defaults": "^0.2.16",
     "@backstage/backend-tasks": "^0.5.21",
