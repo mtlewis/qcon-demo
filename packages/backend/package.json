@@ -41,6 +41,7 @@
     "@backstage/plugin-search-backend-node": "^1.2.20",
     "@backstage/plugin-techdocs-backend": "^1.10.3",
     "app": "link:../app",
+    "catalog-backend-module-planets": "^0.1.0",
     "better-sqlite3": "^9.0.0",
     "dockerode": "^3.3.1",
     "node-gyp": "^9.0.0",
