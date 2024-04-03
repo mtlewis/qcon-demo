@@ -385,7 +385,7 @@ const PlanetCard = () => {
   return (
     <InfoCard title="Image">
       <img
-        src={entity.metadata.annotations!.image}
+        src={entity.metadata.annotations!['qcon-demo.com/image']}
         alt={`Planet ${entity.metadata.name} taken from space`}
         height="250px"
       />

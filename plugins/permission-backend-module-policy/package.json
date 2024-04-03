@@ -1,6 +1,6 @@
 {
-  "name": "@qcon-demo/catalog-backend-module-planets",
-  "description": "The planets backend module for the catalog-backend plugin.",
+  "name": "@qcon-demo/permission-backend-module-policy",
+  "description": "The policy backend module for the permission plugin.",
   "version": "0.1.0",
   "main": "src/index.ts",
   "types": "src/index.ts",
@@ -26,9 +26,10 @@
   "dependencies": {
     "@backstage/backend-common": "^0.21.7-next.0",
     "@backstage/backend-plugin-api": "^0.6.17-next.0",
-    "@backstage/catalog-model": "^1.4.5",
-    "@backstage/plugin-catalog-node": "^1.11.1-next.0",
-    "node-fetch": "^2.7.0"
+    "@backstage/plugin-auth-node": "^0.4.12-next.0",
+    "@backstage/plugin-catalog-backend": "^1.21.1-next.0",
+    "@backstage/plugin-permission-common": "^0.7.13",
+    "@backstage/plugin-permission-node": "^0.7.28-next.0"
   },
   "devDependencies": {
     "@backstage/backend-test-utils": "^0.3.7-next.0",

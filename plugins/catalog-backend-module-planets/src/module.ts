@@ -9,10 +9,16 @@ import {
 } from '@backstage/backend-plugin-api';
 import { catalogProcessingExtensionPoint } from '@backstage/plugin-catalog-node/alpha';
 
+type PlanetDefinition = {
+  name: string;
+  image: string;
+  secrecy: 'public' | 'secret';
+};
+
 const PROVIDER_NAME = 'planets';
 const PLANETS_API = 'http://localhost:8000/api/planets.json';
 
-const toResourceEntity = (name: string, image: string, secrecy: string) => ({
+const toResourceEntity = ({ name, image, secrecy }: PlanetDefinition) => ({
   apiVersion: 'backstage.io/v1alpha1',
   kind: 'Resource',
   metadata: {
@@ -20,8 +26,8 @@ const toResourceEntity = (name: string, image: string, secrecy: string) => ({
     annotations: {
       [ANNOTATION_LOCATION]: `url:${PLANETS_API}`,
       [ANNOTATION_ORIGIN_LOCATION]: `url:${PLANETS_API}`,
-      image: new URL(image, PLANETS_API),
-      secrecy,
+      'qcon-demo.com/image': new URL(image, PLANETS_API),
+      'qcon-demo.com/secrecy': secrecy,
     },
   },
   spec: {
@@ -55,20 +61,10 @@ export const catalogBackendModulePlanets = createBackendModule({
 
                 await connection.applyMutation({
                   type: 'full',
-                  entities: planets.map(
-                    ({
-                      name,
-                      image,
-                      secrecy,
-                    }: {
-                      name: string;
-                      image: string;
-                      secrecy: string;
-                    }) => ({
-                      locationKey: PROVIDER_NAME,
-                      entity: toResourceEntity(name, image, secrecy),
-                    }),
-                  ),
+                  entities: planets.map((definition: PlanetDefinition) => ({
+                    locationKey: PROVIDER_NAME,
+                    entity: toResourceEntity(definition),
+                  })),
                 });
               },
             });
