@@ -40,6 +40,7 @@
     "@backstage/plugin-search-backend-module-techdocs": "^0.1.22-next.0",
     "@backstage/plugin-search-backend-node": "^1.2.21-next.0",
     "@backstage/plugin-techdocs-backend": "^1.10.4-next.0",
+    "@qcon-demo/catalog-backend-module-planets": "workspace:^",
     "app": "link:../app",
     "better-sqlite3": "^9.0.0",
     "dockerode": "^3.3.1",
