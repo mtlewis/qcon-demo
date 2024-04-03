@@ -1,8 +1,10 @@
 import React from 'react';
+import { Navigate } from 'react-router';
 import { createApp } from '@backstage/frontend-app-api';
 import {
   createApiExtension,
   createExtensionOverrides,
+  createPageExtension,
 } from '@backstage/frontend-plugin-api';
 import {
   createApiFactory,
@@ -10,10 +12,6 @@ import {
   SignInPageProps,
   githubAuthApiRef,
 } from '@backstage/core-plugin-api';
-import appVisualizerPlugin from '@backstage/plugin-app-visualizer';
-import homePlugin from '@backstage/plugin-home/alpha';
-import techdocsPlugin from '@backstage/plugin-techdocs/alpha';
-import userSettingsPlugin from '@backstage/plugin-user-settings/alpha';
 import {
   ScmAuth,
   ScmIntegrationsApi,
@@ -42,6 +40,12 @@ const signInPage = createSignInPageExtension({
     ),
 });
 
+const homePage = createPageExtension({
+  name: 'home',
+  defaultPath: '/',
+  loader: async () => <Navigate to="/catalog" />,
+});
+
 const scmAuthExtension = createApiExtension({
   factory: ScmAuth.createDefaultApiFactory(),
 });
@@ -56,12 +60,8 @@ const scmIntegrationApi = createApiExtension({
 
 const app = createApp({
   features: [
-    techdocsPlugin,
-    userSettingsPlugin,
-    homePlugin,
-    appVisualizerPlugin,
     createExtensionOverrides({
-      extensions: [scmAuthExtension, scmIntegrationApi, signInPage],
+      extensions: [homePage, scmAuthExtension, scmIntegrationApi, signInPage],
     }),
   ],
 });

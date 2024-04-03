@@ -1,5 +1,5 @@
 app:
-  title: Scaffolded Backstage App
+  title: QCon Demo Backstage App
   baseUrl: http://localhost:3000
   experimental:
     packages: all
@@ -7,26 +7,19 @@ app:
     bindings:
       org.catalogIndex: catalog.catalogIndex
   extensions:
+    # - entity-card:planets/planet-image
     - entity-card:catalog/about
     - entity-card:catalog-graph/relations
     - entity-card:org/user-profile
     - entity-card:org/group-profile
     - entity-card:org/ownership
     - entity-card:org/members-list
-    - entity-card:api-docs/providing-components
-    - entity-card:api-docs/consuming-components
-    - entity-content:api-docs/definition
-    - entity-content:api-docs/apis
-    # - entity-card:qcon-demo/planet-image
 
 organization:
-  name: My Company
+  name: QCon Demo
 
 backend:
   packages: all
-  # packages:
-  #   exclude:
-  #     - catalog-backend-module-planets
 
   # Used for enabling authentication, secret is shared by all backend plugins
   # See https://backstage.io/docs/auth/service-to-service-auth for
